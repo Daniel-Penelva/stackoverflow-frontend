@@ -2,35 +2,35 @@
     <mat-card class="signup-card">                     <!-- Para o mat-card add o import MatCardModule do Angular Material -->
         <mat-card-content>
             <h2 class="signup-caption">Cadastrar</h2>
-            <form>
+            <form [formGroup]="signupForm">
                 <div class="form-input">
                     <mat-form-field>                   <!-- Para o mat-form-field add o import MatFormFieldModule do Angular Material -->
                         <mat-label>E-mail</mat-label>
-                        <input matInput placeholder="Entre com seu email" name="email" type="email" required>  <!-- Para o matInput add o import MatInputModule do Angular Material -->
+                        <input matInput placeholder="Entre com seu email" name="email" type="email" required formControlName ="email" >  <!-- Para o matInput add o import MatInputModule do Angular Material -->
                     </mat-form-field>
                 </div>
 
                 <div class="form-input">
                     <mat-form-field>                   
                         <mat-label>Nome</mat-label>
-                        <input matInput placeholder="Entre com seu nome" name="name" required>
+                        <input matInput placeholder="Entre com seu nome" name="name" required formControlName ="name">
                     </mat-form-field>
                 </div>
 
                 <div class="form-input">
                     <mat-form-field>                   
                         <mat-label>Senha</mat-label>
-                        <input matInput placeholder="Entre com sua senha" name="password" type="password" required>
+                        <input matInput placeholder="Entre com sua senha" name="password" type="password" required formControlName ="password">
                     </mat-form-field>
                 </div>
 
                 <div class="form-input">
                     <mat-form-field>                   
                         <mat-label>Confirmar Senha</mat-label>
-                        <input matInput placeholder="Confirmar sua senha" name="confirmPassword" type="password" required>
+                        <input matInput placeholder="Confirmar sua senha" name="confirmPassword" type="password" required formControlName ="confirmPassword">
                     </mat-form-field>
                 </div>
-                <button mat-raised-button color="primary" class="signup-button">Cadastrar</button>
+                <button mat-raised-button color="primary" class="signup-button" (click)="signup()" [disabled]="signupForm.invalid">Cadastrar</button>
             </form>
         </mat-card-content>
     </mat-card>
