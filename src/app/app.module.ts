@@ -6,6 +6,8 @@ import { LoginComponent } from './auth-components/login/login.component';
 import { SignupComponent } from './auth-components/signup/signup.component';
 import { AppMaterialModule } from './angular-material/app-material.module';
 import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -17,7 +19,10 @@ import { AppRoutingModule } from './app-routing.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AppMaterialModule
+    AppMaterialModule, 
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [
     provideAnimationsAsync()
