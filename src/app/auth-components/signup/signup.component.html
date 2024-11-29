@@ -4,32 +4,63 @@
             <h2 class="signup-caption">Cadastrar</h2>
             <form [formGroup]="signupForm">
                 <div class="form-input">
-                    <mat-form-field>                   <!-- Para o mat-form-field add o import MatFormFieldModule do Angular Material -->
+                    <mat-form-field appearance="fill" class="form-field">                   <!-- Para o mat-form-field add o import MatFormFieldModule do Angular Material -->
                         <mat-label>E-mail</mat-label>
                         <input matInput placeholder="Entre com seu email" name="email" type="email" required formControlName ="email" >  <!-- Para o matInput add o import MatInputModule do Angular Material -->
+
+                        <mat-error *ngIf="signupForm.get('email')?.touched">
+                            <div *ngIf="signupForm.get('email')?.hasError('required')">O campo e-mail é obrigatório.</div>
+                            <div *ngIf="signupForm.get('email')?.hasError('email')">Insira um e-mail válido.</div>
+                        </mat-error>
                     </mat-form-field>
                 </div>
 
+                <mat-divider class="divider"></mat-divider>   <!-- Para o mat-divider add o import MatDividerModule do Angular Material -->
+
                 <div class="form-input">
-                    <mat-form-field>                   
+                    <mat-form-field appearance="fill" class="form-field">                   
                         <mat-label>Nome</mat-label>
                         <input matInput placeholder="Entre com seu nome" name="name" required formControlName ="name">
+
+                        <mat-error *ngIf="signupForm.get('name')?.touched">
+                            <div *ngIf="signupForm.get('name')?.hasError('required')">O campo nome é obrigatório.</div>
+                            <div *ngIf="signupForm.get('name')?.hasError('minlength')">O campo nome precisa ter no mínimo três caracteres.</div>
+                            <div *ngIf="signupForm.get('name')?.hasError('maxlength')">O campo nome precisa ter no máximo cinquenta caracteres.</div>
+                        </mat-error>
                     </mat-form-field>
                 </div>
 
+                <mat-divider class="divider"></mat-divider>
+
                 <div class="form-input">
-                    <mat-form-field>                   
+                    <mat-form-field appearance="fill" class="form-field">                   
                         <mat-label>Senha</mat-label>
                         <input matInput placeholder="Entre com sua senha" name="password" type="password" required formControlName ="password">
+
+                        <mat-error *ngIf="signupForm.get('password')?.touched">
+                            <div *ngIf="signupForm.get('password')?.hasError('required')">O campo senha é obrigatório.</div>
+                            <div *ngIf="signupForm.get('password')?.hasError('minlength')">O campo senha precisa ter no mínimo três caracteres.</div>
+                        </mat-error>
                     </mat-form-field>
                 </div>
 
+                <mat-divider class="divider"></mat-divider>
+
                 <div class="form-input">
-                    <mat-form-field>                   
+                    <mat-form-field appearance="fill" class="form-field">                   
                         <mat-label>Confirmar Senha</mat-label>
                         <input matInput placeholder="Confirmar sua senha" name="confirmPassword" type="password" required formControlName ="confirmPassword">
+
+                        <mat-error *ngIf="signupForm.get('confirmPassword')?.touched || signupForm.get('confirmPassword')?.hasError('passwordMismatch')">
+                            <div *ngIf="signupForm.get('confirmPassword')?.hasError('required')">O campo confirmar senha é obrigatório.</div>
+                            <div *ngIf="signupForm.get('confirmPassword')?.hasError('minlength')">O campo confirmar senha precisa ter no mínimo três caracteres.</div>
+                            <div *ngIf="signupForm.get('confirmPassword')?.hasError('passwordMismatch')">As senhas não coincidem.</div>
+                        </mat-error>
                     </mat-form-field>
                 </div>
+
+                <mat-divider class="divider"></mat-divider>
+
                 <button mat-raised-button color="primary" class="signup-button" (click)="signup()" [disabled]="signupForm.invalid || isSubmitting">Cadastrar</button>
             </form>
         </mat-card-content>
