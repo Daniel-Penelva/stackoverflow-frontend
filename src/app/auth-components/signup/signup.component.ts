@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { AuthService } from '../../auth-services/auth-service/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -13,6 +13,8 @@ export class SignupComponent {
 
   signupForm!: FormGroup;
   isSubmitting: boolean = false;  // Flag para desabilitar o botão enquanto a requisição está em andamento.
+
+  showPassword = signal(true);    // Estado reativo para controlar a visibilidade da senha
 
   constructor(
     private service: AuthService, 
@@ -89,6 +91,11 @@ export class SignupComponent {
         this.isSubmitting = false; // Reabilita o botão ao finalizar a requisição.
       }
     });
+  }
+
+  togglePasswordVisibility(mouseEvent: MouseEvent) {
+    this.showPassword.set(!this.showPassword());      // Alterna o estado
+    mouseEvent.stopPropagation();                     // Impede a propagação do evento
   }
 
 }

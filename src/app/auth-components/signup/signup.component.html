@@ -35,7 +35,16 @@
                 <div class="form-input">
                     <mat-form-field appearance="fill" class="form-field">                   
                         <mat-label>Senha</mat-label>
-                        <input matInput placeholder="Entre com sua senha" name="password" type="password" required formControlName ="password">
+                        <input matInput [type]="showPassword() ? 'password' : 'text'" autocomplete="off" placeholder="Entre com sua senha" name="password" type="password" required formControlName ="password">
+                        <button 
+                            mat-icon-button 
+                            matSuffix 
+                            (click)="togglePasswordVisibility($event)" 
+                            [attr.aria-label]="showPassword() ? 'Ocultar senha' : 'Mostrar senha'"
+                            [attr.aria-pressed]="showPassword()">
+                        
+                            <mat-icon>{{ showPassword() ? 'visibility' : 'visibility_off' }}</mat-icon>  <!-- Para o mat-icon add o import MatIconModule do Angular Material -->
+                        </button>
 
                         <mat-error *ngIf="signupForm.get('password')?.touched">
                             <div *ngIf="signupForm.get('password')?.hasError('required')">O campo senha é obrigatório.</div>
