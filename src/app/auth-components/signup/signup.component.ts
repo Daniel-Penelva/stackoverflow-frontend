@@ -93,6 +93,7 @@ export class SignupComponent {
     });
   }
 
+  // Método para funcionalidade mostrar/ocultar senha
   togglePasswordVisibility(mouseEvent: MouseEvent) {
     this.showPassword.set(!this.showPassword());      // Alterna o estado
     mouseEvent.stopPropagation();                     // Impede a propagação do evento
