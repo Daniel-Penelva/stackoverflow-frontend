@@ -6,10 +6,11 @@
 }
 
 .login-card {
-    max-width: 400px;
+    max-width: 500px;
     width: 90%;
-    padding: 20px;
+    padding: 40px;
     text-align: center;
+    margin: 0 auto;
 }
 
 .login-caption {
@@ -29,4 +30,20 @@
     .login-card {
         max-width: 300px;
     }
+}
+
+.mat-error {
+    color: red; /* Exibe as mensagens em vermelho */
+    font-size: 0.9em; /* Ajusta o tamanho da fonte */
+    margin: 4px 0 8px; /* Ajusta a posição das mensagens */
+    line-height: 1.4;
+}
+
+.form-field {
+    width: 100%; /* Garante que os campos ocupem toda a largura disponível */
+}
+
+.divider {
+    margin: 20px 0; /* Adiciona espaçamento entre os campos */
+    display: none;
 }

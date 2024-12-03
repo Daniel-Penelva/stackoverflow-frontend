@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { AuthService } from '../../auth-services/auth-service/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -10,6 +10,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent {
 
   loginForm!: FormGroup;
+
+  showPassword = signal(true);    // Estado reativo para controlar a visibilidade da senha
 
   constructor(private service: AuthService, private fb: FormBuilder) {}
 
@@ -28,6 +30,12 @@ export class LoginComponent {
     }, error => {
       console.error('Erro ao logar usuário', error);
     });
+  }
+
+  // Método para funcionalidade mostrar/ocultar senha
+  togglePasswordVisibility(mouseEvent: MouseEvent) {
+    this.showPassword.set(!this.showPassword());      // Alterna o estado
+    mouseEvent.stopPropagation();                     // Impede a propagação do evento
   }
 
 }
