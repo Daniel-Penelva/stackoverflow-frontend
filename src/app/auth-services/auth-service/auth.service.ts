@@ -22,8 +22,8 @@ export class AuthService {
   }
 
   // Método responsável por enviar os dados do login (email e password) para o endpoint authentication
-  login(loginRequest: LoginRequest): Observable<any> {
-    return this.http.post(BASIC_URL + "authentication", loginRequest, { observe: 'response' }).pipe(
+  login(email: string, password: string): Observable<any> {
+    return this.http.post(BASIC_URL + "authentication", { email, password }, { observe: 'response' }).pipe(
       tap(__ => this.log("User Authentication")), 
       map((res: HttpResponse<any>) => {
         this.storage.saveUser(res.body);
