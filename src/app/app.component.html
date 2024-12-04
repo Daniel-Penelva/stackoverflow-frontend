@@ -1,9 +1,18 @@
-<div>
+<div *ngIf="!isUserLoggedIn">
   <mat-toolbar color="primary" class="navbar">                 <!-- Para o mat-toolbar add o import MatToolbarModule do Angular Material -->
     <span class="navbar-brand">Stack Exchange</span>
     <span class="spacer"></span>
     <button mat-button routerLink="/login" routerLinkActive="active">Login</button>      <!-- Para o mat-button add o import MatButtonModule do Angular Material -->
     <button mat-button routerLink="/signup" routerLinkActive="active">Cadastrar</button>
+  </mat-toolbar>
+</div>
+
+<div *ngIf="isUserLoggedIn">
+  <mat-toolbar color="primary" class="navbar">                 
+    <span class="navbar-brand">Stack Exchange</span>
+    <span class="spacer"></span>
+    <button mat-button routerLink="/user/dashboard" routerLinkActive="active">Painel</button>      
+    <button mat-button routerLinkActive="active" (click)="logout()">Logout</button>
   </mat-toolbar>
 </div>
 
