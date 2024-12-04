@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 
 import { UserRoutingModule } from './user-routing.module';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { AppMaterialModule } from '../angular-material/app-material.module';
 
 
 @NgModule({
@@ -11,7 +14,11 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
   ],
   imports: [
     CommonModule,
-    UserRoutingModule
+    UserRoutingModule,
+    AppMaterialModule, 
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class UserModule { }
