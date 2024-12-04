@@ -23,20 +23,17 @@ export class StorageService {
   }
 
   // recupera o token do armazenamento local.
-  static getToken(): any {
+  getToken(): any {
     return localStorage.getItem(TOKEN);
   }
 
   // verifica se o token está presente no armazenamento local e retorna false se o token não existir.
-  static isUserLoggedIn() {
-    if(this.getToken() === null) {
-      return false;
-    }
-    return true;
+  isUserLoggedIn(): boolean {
+    return !!this.getToken();         // Usa !! para converter o valor em um booleano.
   }
 
   // remove o token e os dados do usuário do armazenamento local, efetivamente deslogando o usuário.
-  static logout() {
+  logout() {
     window.localStorage.removeItem(TOKEN);
     window.localStorage.removeItem(USER);
   }

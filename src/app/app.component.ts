@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { StorageService } from './auth-services/storage-service/storage.service';
 import { NavigationEnd, Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,10 @@ export class AppComponent {
 
   isUserLoggedIn!: boolean;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router, 
+    private storage: StorageService,
+    private snackbar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.updateUserLoggedInStatus();
@@ -23,12 +27,13 @@ export class AppComponent {
     });
   }
 
-  private updateUserLoggedInStatus(): void {
-    this.isUserLoggedIn = StorageService.isUserLoggedIn();
+  updateUserLoggedInStatus(): void {
+    this.isUserLoggedIn = this.storage.isUserLoggedIn();
   }
 
   logout() {
-    StorageService.logout();
+    this.storage.logout();
+    this.snackbar.open('Você foi deslogado com sucesso.', 'Fechar', { duration: 3000 });
     this.router.navigateByUrl("/login");
   }
 }
