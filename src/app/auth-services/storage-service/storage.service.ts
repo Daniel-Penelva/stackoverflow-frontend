@@ -38,4 +38,51 @@ export class StorageService {
     window.localStorage.removeItem(USER);
   }
 
+  // verifica se existe token no localStorage.
+  public hasToken(): boolean {
+    if (this.getToken() === null) {
+      return false;
+    }
+    return true;
+  }
+
+  // recupera o usuário no localStorage sob a chave USER e converte de JSON para objeto JS.
+  public getUser(): any {
+    const user = localStorage.getItem(USER);
+    return user ? JSON.parse(user) : null;
+  }
+
+  // obtém o objeto usuário usando o getUser.
+  public getUserId(): string {
+    const user = this.getUser();
+    if (user === null) {
+      return '';
+    }
+    return user.userId;
+  }
+
+  // obtém o objeto usuário usando o getUser e retorna o papel role.
+  public getUserRole(): string {
+    const user = this.getUser();
+    if (user === null) {
+      return '';
+    }
+    return user.role;
+  }
+
+  // verifica se existe token e recupera o papel (role) do usuário, no caso, 1 que representa administrador
+  public isAdminLoggedIn(): boolean {
+    if (this.getToken() === null) {
+      return false;
+    }
+    const role: string = this.getUserRole();
+    return role == '1';
+  }
+
+  // remove o token e desloga o usuário
+  public signOut(): void {
+    window.localStorage.removeItem(TOKEN);
+    window.localStorage.removeItem(USER);
+  }
+
 }
