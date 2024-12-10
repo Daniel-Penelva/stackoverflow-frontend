@@ -1,8 +1,17 @@
-import { CanActivateFn } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, GuardResult, MaybeAsync, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { Injectable } from '@angular/core';
 
-export const userGuard: CanActivateFn = (route, state) => {
-  return true;
-};
+// O decorator @Injectable com providedIn: 'root' faz com que este serviço seja um singleton e esteja disponível em toda a aplicação.
+@Injectable({
+  providedIn: 'root'
+})
+export class UserGuard implements CanActivate {
+  
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): MaybeAsync<GuardResult> {
+    throw new Error('Method not implemented.');
+  }
+
+}
 
 
 /**
