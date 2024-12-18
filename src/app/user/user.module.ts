@@ -6,11 +6,13 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AppMaterialModule } from '../angular-material/app-material.module';
+import { PostQuestionComponent } from './components/post-question/post-question.component';
 
 
 @NgModule({
   declarations: [
-    DashboardComponent
+    DashboardComponent,
+    PostQuestionComponent
   ],
   imports: [
     CommonModule,
