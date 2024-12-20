@@ -1,1 +1,51 @@
-<p>post-question works!</p>
+<mat-spinner [color]="'primary'" [diameter]="60" [strokeWidth]="6" *ngIf="isSubmitting"></mat-spinner>   <!-- Para o mat-spinner add o import MatProgressSpinnerModule do Angular Material -->
+<div class="parent" *ngIf="!isSubmitting">
+    <div class="child">
+        <h2 class="question-caption">Postar Pergunta</h2>
+        <br>
+
+        <form [formGroup]="validateForm">
+            <div class="form-input">
+                <mat-form-field appearance="fill" class="form-field">
+                    <mat-label>Título</mat-label>
+                    <input matInput placeholder="título" formControlName="title">
+                    <mat-error *ngIf="validateForm.get('title')?.invalid && (validateForm.get('title')?.dirty || validateForm.get('title')?.touched)">
+                        Título Obrigatório!
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="form-input">
+                <mat-form-field appearance="fill" class="form-field">
+                    <mat-label>Corpo de Texto</mat-label>
+                    <textarea matInput rows="6" placeholder="Digite aqui sua pergunta" formControlName="body"></textarea>
+                    <mat-error *ngIf="validateForm.get('body')?.invalid && (validateForm.get('body')?.dirty || validateForm.get('body')?.touched)">
+                        Corpo de Texto Obrigatório!
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="form-input">
+                <mat-form-field appearance="fill" class="form-field">
+                    <mat-label>Suas Tags</mat-label>
+                    <mat-chip-grid #chipGrid aria-label="Enter tags" formControlName="tags">                         <!-- Para o mat-chip-grid add o import MatChipsModule do Angular Material -->
+                        <mat-chip-row *ngFor="let tag of tags" (removed)="remove(tag)" [editable]="true" (edited)="edit(tag, $event)" [aria-description]="'pressione Enter para editar ' + tag.name">
+                            {{ tag.name }}
+                            <button matChipRemove [attr.aria-label]="'remove ' + tag.name">
+                                <mat-icon>cancel</mat-icon>
+                            </button>
+                        </mat-chip-row>
+                        <input placeholder="Nova tag..." 
+                                [matChipInputFor]="chipGrid" 
+                                [matChipInputSeparatorKeyCodes]="separatorKeysCodes" 
+                                [matChipInputAddOnBlur]="addOnBlur" 
+                                (matChipInputTokenEnd)="add($event)" 
+                        />
+                    </mat-chip-grid>
+                </mat-form-field>
+            </div>
+
+            <button mat-raised-button color="primary" class="login-form-button login-form-margin" type="submit" [disabled]="validateForm.invalid" (click)="postQuestion()">Postar Pergunta</button>
+        </form>
+    </div>
+</div>
