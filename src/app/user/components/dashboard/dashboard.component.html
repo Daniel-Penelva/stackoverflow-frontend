@@ -1,1 +1,37 @@
-<p>dashboard works!</p>
+<div style="min-height: 91vh; padding: 30px;" *ngIf="questions">
+    <div>
+        <div class="container">
+            <ng-container *ngIf="questions.length === 0; else questionList">
+                <mat-card class="empty-message">
+                    <mat-card-content>
+                        <mat-icon>sentiment_dissatisfied</mat-icon>
+                        <p>Nenhuma pergunta encontrada</p>
+                    </mat-card-content>
+                </mat-card>
+            </ng-container>
+            
+            <ng-template #questionList>
+                <div class="child" *ngFor="let question of questions">
+                    <h2 class="question-title">{{ question.title }}</h2>
+                    <div class="question-content">
+                        <p>{{ question.body }}</p>
+                        <div class="tags-container">
+                            <mat-chip-listbox>
+                                <mat-chip color="primary" *ngFor="let tag of question.tags">{{ tag }}</mat-chip>
+                            </mat-chip-listbox>
+                        </div>
+                        <hr>
+                        <h5>
+                            Postado por: <b>{{ question.username }}</b> - 
+                            Postado em: <b>{{ question.createdDate | date: 'dd/MM/yyyy' }}</b> - 
+                        </h5>
+                    </div>
+                </div>
+            </ng-template>
+
+            <div class="pagination">
+                <mat-paginator [length]="total" [pageIndex] = "pageNum" [pageSize]="5" (page)="pageIndexChange($event)"></mat-paginator>  <!-- Para o mat-paginator add o import MatPaginatorModule do Angular Material -->
+            </div>
+        </div>
+    </div>
+</div>

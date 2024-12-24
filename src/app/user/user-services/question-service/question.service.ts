@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { StorageService } from '../../../auth-services/storage-service/storage.service';
 import { QuestionRequest } from '../../../model/QuestionRequest';
+import { AllQuestionRequest } from '../../../model/AllQuestionRequest';
 
 const BASIC_URL = "http://localhost:8080/";
 
@@ -25,6 +26,10 @@ export class QuestionService {
   createAutorizationHeader(): HttpHeaders {
     let authHeaders: HttpHeaders = new HttpHeaders();
     return authHeaders.set("Authorization", "Bearer " + this.storageService.getToken());
+  }
+
+  getAllQuestion(pageNumber: number): Observable<AllQuestionRequest> {
+    return this.http.get<AllQuestionRequest>(BASIC_URL + `api/questions/${pageNumber}`, { headers: this.createAutorizationHeader() }).pipe(catchError(this.handleError));
   }
 
   // Método de tratamento de erros que captura falhas na comunicação com o servidor.
