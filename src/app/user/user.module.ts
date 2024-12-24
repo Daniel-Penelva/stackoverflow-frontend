@@ -7,12 +7,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AppMaterialModule } from '../angular-material/app-material.module';
 import { PostQuestionComponent } from './components/post-question/post-question.component';
+import { LoadingDialogComponent } from './components/loading-dialog/loading-dialog.component';
 
 
 @NgModule({
   declarations: [
     DashboardComponent,
-    PostQuestionComponent
+    PostQuestionComponent,
+    LoadingDialogComponent
   ],
   imports: [
     CommonModule,

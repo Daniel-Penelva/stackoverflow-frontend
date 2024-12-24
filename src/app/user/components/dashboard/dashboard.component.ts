@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { QuestionService } from '../../user-services/question-service/question.service';
+import { LoadingDialogComponent } from '../loading-dialog/loading-dialog.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,13 +15,21 @@ export class DashboardComponent {
   total!: number;                 // Total de registros, calculado como total de páginas * registros por página.
 
 
-  constructor(private questionService: QuestionService) {}
+  constructor(private questionService: QuestionService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.getAllQuestions();
   }
 
   getAllQuestions() {
+
+    /**
+     * OBS. 
+     * disableClose: Impede que o overlay seja fechado manualmente
+     * panelClass: Estilo opcional para sobreposição transparente
+    */
+    const dialogRef = this.dialog.open(LoadingDialogComponent, { disableClose: true, panelClass: 'transparent-dialog'});
+
     this.questionService.getAllQuestion(this.pageNum).subscribe({
       next: (response) => {
         console.log(response);
@@ -30,6 +40,7 @@ export class DashboardComponent {
         console.error('Erro ao listar as perguntas:', error);
       },
       complete: () => {
+        dialogRef.close(); // Fecha o dialog ao terminar
         console.log('Requisição finalizada.');
       },
     });
