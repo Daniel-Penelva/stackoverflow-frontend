@@ -43,6 +43,12 @@ export class PostQuestionComponent {
         console.log("Pergunta criada com sucesso:", response);
         if(response.id != null) {
           this.snackBar.open('Pergunta criada com sucesso', 'Fechar', { duration: 5000 });
+          this.validateForm.reset({  // limpa o formulário apos a pergunta a ser criada evitando que as validações sejam exibidas
+            title: '',
+            body: '',
+            tags: []
+          }, { emitEvent: false });   
+          this.tags =[];              // limpa as tags após a pergunta ser criada
         } else {
           this.snackBar.open('Algo deu errado!', 'Fechar', { duration: 5000 });
         }
