@@ -84,8 +84,8 @@ export class SignupComponent {
         }
       },
       error: (error) => {
-        console.error('Erro ao cadastrar usuário:', error);
-        this.snackBar.open('Erro ao cadastrar usuário, por favor tente mais tarde!', 'Fechar', { duration: 5000 });
+        console.error('Usuário com e-mail já cadastrado:', error);
+        this.snackBar.open('Usuário com e-mail já cadastrado, por favor tente outro e-mail!', 'Fechar', { duration: 5000 });
       },
       complete: () => {
         this.isSubmitting = false; // Reabilita o botão ao finalizar a requisição.
