@@ -4,6 +4,6 @@ export interface QuestionRequest {
   body: string; // Corpo/descrição da pergunta
   tags: string[]; // Tags associadas à pergunta
   userId: number | string; // ID do usuário que está criando a pergunta
-  createdDate?: Date; // Data de criação
-  username: string    // captura o nome do usuário
+  createdDate?: Date | string; // Data de criação
+  username: string;    // captura o nome do usuário
 }
