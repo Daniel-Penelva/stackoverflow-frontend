@@ -1,8 +1,9 @@
 import { Component, signal } from '@angular/core';
 import { AuthService } from '../../auth-services/auth-service/auth.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, AsyncValidator, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-signup',
@@ -85,7 +86,14 @@ export class SignupComponent {
       },
       error: (error) => {
         console.error('Usuário com e-mail já cadastrado:', error);
+
+        // Marca o campo email como inválido e exibe a mensagem de erro
+        const emailControl = this.signupForm.get('email');
+        emailControl?.setErrors({ emailExists: true });  // Adiciona um erro personalizado ao campo email
+
         this.snackBar.open('Usuário com e-mail já cadastrado, por favor tente outro e-mail!', 'Fechar', { duration: 5000 });
+
+        this.isSubmitting = false; // Reabilita o botão ao finalizar a requisição.
       },
       complete: () => {
         this.isSubmitting = false; // Reabilita o botão ao finalizar a requisição.
