@@ -18,4 +18,25 @@
     </div>
   </div>
 </div>
+
+<!-- ////////////////////////  Post Answer -->
+
+<div class="answer-section" style="margin-top: 30px;">
+  <div>
+    <h2 class="title-answer">Postar Resposta</h2>
+  </div>
+
+  <form [formGroup]="validateForm" (ngSubmit)="addAnswer()">
+    <div class="form-field">
+      <mat-form-field appearance="fill">
+        <mat-label>Assunto</mat-label>
+        <textarea matInput rows="2" placeholder="Solução..." formControlName="body"></textarea>
+      </mat-form-field>
+      <button mat-raised-button color="accent">Postar Resposta</button>
+    </div>
+  </form>
+
+</div>
+
+
 </ng-template>

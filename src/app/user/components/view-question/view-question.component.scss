@@ -1,33 +1,17 @@
 .question-card {
     border: 1px solid #ccc;
     padding: 20px;
-    margin-bottom: 20px;
+    margin: 30px auto 20px; /* Margem superior, centralizada, margem inferior */
     display: flex;
     flex-direction: column;
-    width: 60%;
-    margin: 0 auto;
+    width: 80%; /* Largura padrão */
+    max-width: 940px; /* Largura máxima em telas grandes */
+    box-sizing: border-box; /* Inclui padding e borda na largura total */
 }
 
 h2 {
     font-size: 24px;
     margin-bottom: 10px;
-}
-
-.vote-section {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-.arrow-icon {
-    cursor: pointer;
-    margin-right: 10px;
-    font-size: 24px;
-}
-
-.vote-count {
-    font-size: 24px;
-    margin-right: 10px;
 }
 
 .question-body {
@@ -38,21 +22,59 @@ h2 {
     margin-top: 10px;
 }
 
-@media screen and (max-width: 600px) {
+/* Media Queries para responsividade - Similar ao exemplo do textarea */
+@media screen and (max-width: 768px) {
     .question-card {
-        padding: 10px;
+        width: 95%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .question-card {
+        width: 100%;
+        padding: 10px; /* Ajusta o padding em telas menores */
     }
 
     h2 {
         font-size: 20px;
         margin-bottom: 5px;
     }
+}
 
-    .arrow-icon {
-        font-size: 20px;
+/* Customização Post Answer */ 
+
+.answer-section {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin: 0 auto;
+    width: 80%; /* Largura do contêiner principal */
+    max-width: 900px; /* Largura máxima para telas grandes */
+}
+
+.form-field {
+    display: flex; /* Habilita o Flexbox */
+    flex-direction: column; /* Alinha os elementos verticalmente */
+    width: 100%; /* Garante que o form-field ocupe toda a largura do .answer-section */
+}
+
+mat-form-field {
+    width: 100%; /* Faz o mat-form-field ocupar toda a largura disponível */
+}
+
+textarea {
+    resize: vertical; /* Permite redimensionamento vertical */
+    min-height: 100px; /* Altura mínima para o textarea */
+}
+
+/* Media Queries para responsividade */
+@media screen and (max-width: 768px) {
+    .answer-section {
+        width: 95%;
     }
+}
 
-    .vote-count {
-        font-size: 20px;
+@media screen and (max-width: 480px) {
+    .answer-section {
+        width: 100%;
     }
 }
