@@ -78,3 +78,22 @@ textarea {
         width: 100%;
     }
 }
+
+/* Customização Image */ 
+.image-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+img {
+    max-width: 40%;
+    height: 40%;
+}
+
+#file {
+    display: flex;
+    margin-bottom: 20px;
+}

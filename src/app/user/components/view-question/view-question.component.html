@@ -3,7 +3,7 @@
 </div>
 
 <ng-template #questionContent>
-<div class="question-card" style="margin-top: 30px">
+<div class="question-card" style="margin-top: 30px" *ngIf="question">
   <h2>{{ question?.questionsDTO?.title }}</h2>
   <p>
     Perguntou em: <b>{{ question?.questionsDTO?.createdDate | date : "dd/MM/yyyy" }}</b> 
@@ -32,11 +32,16 @@
         <mat-label>Assunto</mat-label>
         <textarea matInput rows="2" placeholder="Solução..." formControlName="body"></textarea>
       </mat-form-field>
+
+      <div class="form-field">
+        <div class="image-preview" *ngIf="selectedFile">
+          <img [src]="imagePreview" height="50" alt="Img de pré-visualização" />
+        </div>
+        <input id="file" type="file" accept="image/png, image/jpeg" (change)="onFileSelected($event)" />
+      </div>
+      
       <button mat-raised-button color="accent">Postar Resposta</button>
     </div>
   </form>
-
 </div>
-
-
 </ng-template>

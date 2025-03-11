@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SingleQuestionRequest } from '../../../model/SingleQuestionRequest';
 import { QuestionService } from '../../user-services/question-service/question.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AnswerService } from '../../user-services/answer-services/answer.service';
 import { StorageService } from '../../../auth-services/storage-service/storage.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-view-question',
@@ -18,12 +19,18 @@ export class ViewQuestionComponent {
 
   validateForm!: FormGroup;
 
+  selectedFile: File | null = null;
+  imagePreview: string | ArrayBuffer | null = null;
+  formData: FormData = new FormData();   // Para manipular arquivo de imagem
+
   constructor(
     private questionService: QuestionService,
     private activatedRoute: ActivatedRoute,
     private answerService: AnswerService,
     private fb: FormBuilder,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private snackBar: MatSnackBar,
+    private router: Router
   ) {}
 
 
@@ -76,9 +83,21 @@ export class ViewQuestionComponent {
 
     console.log('Dados da resposta:', data);
 
+    this.formData.append("multipartFile", this.selectedFile as any);
+
     this.answerService.postAnswer(data).subscribe({
-      next(response) {
+      next: (response: any) => {
+        this.answerService.postAnswerImage(this.formData, response.id).subscribe((res) => {
+          console.log('Resposta da requisição da imagem', res);
+        });
         console.log('Resposta da requisição:', response);
+        
+        if(response.id != null) {
+          this.snackBar.open('Resposta enviada com sucesso!', 'Fechar', { duration: 5000 });
+          this.router.navigate(['/user/dashboard']);
+        } else {
+          this.snackBar.open('Erro ao enviar resposta!', 'Fechar', { duration: 5000 });
+        }
       },
       error: (error) => {
         console.log(error);
@@ -87,5 +106,20 @@ export class ViewQuestionComponent {
         console.log('Requisição finalizada.');
       },
     })
+  }
+
+  // Captura a imagem selecionada pelo usuário e chama previewImage() para exibir uma prévia.
+  onFileSelected(event: any): void {
+    this.selectedFile = event.target.files[0];
+    this.previewImage();
+  }
+
+  // Visualizar a imagem selecionada no template
+  previewImage(): void {
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result;
+    };
+    reader.readAsDataURL(this.selectedFile as Blob);
   }
 }

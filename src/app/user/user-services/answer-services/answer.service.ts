@@ -14,7 +14,12 @@ export class AnswerService {
   constructor(private http: HttpClient, private storageService: StorageService) { }
 
   postAnswer(answerDto: AnswersRequest): Observable<AnswersRequest> {
-    return this.http.post<AnswersRequest>(BASIC_URL + "api/answer", answerDto, { headers: this.createAutorizationHeader() }).pipe(catchError(this.handleError));;
+    return this.http.post<AnswersRequest>(BASIC_URL + "api/answer", answerDto, { headers: this.createAutorizationHeader() }).pipe(catchError(this.handleError));
+  }
+
+  postAnswerImage(fileData: FormData, answerId: number): Observable<any> {
+    const url = `${BASIC_URL}api/image/${answerId}`;
+    return this.http.post<[]>(url, fileData, { headers: this.createAutorizationHeader() }).pipe(catchError(this.handleError));
   }
 
 
