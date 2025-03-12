@@ -83,16 +83,23 @@ export class ViewQuestionComponent {
 
     console.log('Dados da resposta:', data);
 
-    this.formData.append("multipartFile", this.selectedFile as any);
+    // Garante que há um arquivo antes de adicioná-lo ao FormData
+    if (this.selectedFile) {
+      this.formData.append("multipartFile", this.selectedFile as any);
+    }
 
     this.answerService.postAnswer(data).subscribe({
       next: (response: any) => {
-        this.answerService.postAnswerImage(this.formData, response.id).subscribe((res) => {
-          console.log('Resposta da requisição da imagem', res);
-        });
-        console.log('Resposta da requisição:', response);
-        
-        if(response.id != null) {
+        if (response.id != null) {
+          console.log('Resposta enviada com sucesso:', response);
+  
+          if (this.selectedFile) { // Apenas envia imagem se houver um arquivo
+            this.answerService.postAnswerImage(this.formData, response.id).subscribe((res) => {
+              console.log('Resposta da requisição da imagem:', res);
+              this.snackBar.open('Imagem enviada com sucesso!', 'Fechar', { duration: 5000 });
+            });
+          }
+          
           this.snackBar.open('Resposta enviada com sucesso!', 'Fechar', { duration: 5000 });
           this.router.navigate(['/user/dashboard']);
         } else {
@@ -101,11 +108,15 @@ export class ViewQuestionComponent {
       },
       error: (error) => {
         console.log(error);
+        this.snackBar.open('Erro ao processar requisição!', 'Fechar', { duration: 5000 });
       },
       complete: () => {
         console.log('Requisição finalizada.');
+        this.formData = new FormData(); // Resetando FormData após envio
+        this.selectedFile = null; // Resetando arquivo selecionado
+        this.imagePreview = null; // Resetando preview da imagem
       },
-    })
+    });
   }
 
   // Captura a imagem selecionada pelo usuário e chama previewImage() para exibir uma prévia.
@@ -116,10 +127,12 @@ export class ViewQuestionComponent {
 
   // Visualizar a imagem selecionada no template
   previewImage(): void {
-    const reader = new FileReader();
-    reader.onload = () => {
-      this.imagePreview = reader.result;
-    };
-    reader.readAsDataURL(this.selectedFile as Blob);
+    if(this.selectedFile) {              // Verifica se um arquivo foi selecionado
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagePreview = reader.result;
+      };
+      reader.readAsDataURL(this.selectedFile as Blob);
+    }
   }
 }
