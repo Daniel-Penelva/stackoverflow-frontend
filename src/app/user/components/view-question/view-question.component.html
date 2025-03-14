@@ -19,6 +19,21 @@
   </div>
 </div>
 
+<!-- ////////////////////////  Viewing Answer -->
+
+<div *ngFor="let answer of answers; let i = index;" class="answer-card" style = "margin-top: 30px">
+  <h2>Resposta</h2>
+  <div>
+    <div>
+      <h5>Respondido por: <b>{{ answer.username }}</b> - Respondido em: <b>{{ answer.createdDate | date : "MMM d, y, h:mm:ss a" }}</b></h5> <!-- Formatação de data: Jun 15, 2015, 9:03:01 AM -->
+      <p>{{ answer.body }}</p>
+      <div *ngIf="answer.convertedImg">
+        <img [src]="answer.convertedImg" height="50" alt="Imagem de resposta" />
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- ////////////////////////  Post Answer -->
 
 <div class="answer-section" style="margin-top: 30px;">

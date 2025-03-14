@@ -22,6 +22,7 @@ export class ViewQuestionComponent {
   selectedFile: File | null = null;
   imagePreview: string | ArrayBuffer | null = null;
   formData: FormData = new FormData();   // Para manipular arquivo de imagem
+  answers: any[] = [];
 
   constructor(
     private questionService: QuestionService,
@@ -64,6 +65,13 @@ export class ViewQuestionComponent {
         console.log('Resposta da requisição recebida:', response);
         this.question = response || null;
         console.log('Pergunta após a tarefa:', this.question);
+
+        response.answersDTOList.forEach(element => {
+          if(element.file != null) {
+            element.convertedImg = 'data:image/jpeg;base64,' + element.file.data;
+          }
+          this.answers.push(element);
+        });
       },
       error: (error) => {
         console.log(error);
