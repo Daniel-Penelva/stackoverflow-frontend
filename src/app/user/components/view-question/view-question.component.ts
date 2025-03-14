@@ -66,9 +66,12 @@ export class ViewQuestionComponent {
         this.question = response || null;
         console.log('Pergunta após a tarefa:', this.question);
 
+        // Limpa o array antes de adicionar novas respostas (evita duplicação)
+        this.answers = [];
+
         response.answersDTOList.forEach(element => {
           if(element.file != null) {
-            element.convertedImg = 'data:image/jpeg;base64,' + element.file.data;
+            element.convertedImg = `data:${element.file.type};base64,${element.file.data}`; // Define dinamicamente o tipo da imagem (jpeg, png) para suportar diferentes formatos
           }
           this.answers.push(element);
         });

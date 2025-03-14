@@ -27,8 +27,12 @@
     <div>
       <h5>Respondido por: <b>{{ answer.username }}</b> - Respondido em: <b>{{ answer.createdDate | date : "MMM d, y, h:mm:ss a" }}</b></h5> <!-- Formatação de data: Jun 15, 2015, 9:03:01 AM -->
       <p>{{ answer.body }}</p>
-      <div *ngIf="answer.convertedImg">
-        <img [src]="answer.convertedImg" height="50" alt="Imagem de resposta" />
+      <div *ngIf="answer.convertedImg && answer.convertedImg.trim() !== ''">  <!-- Verifica se há imagem antes de renderizar -->
+        <img 
+          [src]="answer.convertedImg" 
+          [alt]="'Imagem enviada por ' + answer.username" 
+          style="height: 150px; display: block; margin-top: 10px;" 
+        />
       </div>
     </div>
   </div>
