@@ -9,6 +9,7 @@ import { AppMaterialModule } from '../angular-material/app-material.module';
 import { PostQuestionComponent } from './components/post-question/post-question.component';
 import { LoadingDialogComponent } from './components/loading-dialog/loading-dialog.component';
 import { ViewQuestionComponent } from './components/view-question/view-question.component';
+import { GetQuestionsByUseridComponent } from './components/get-questions-by-userid/get-questions-by-userid.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { ViewQuestionComponent } from './components/view-question/view-question.
     DashboardComponent,
     PostQuestionComponent,
     LoadingDialogComponent,
-    ViewQuestionComponent
+    ViewQuestionComponent,
+    GetQuestionsByUseridComponent
   ],
   imports: [
     CommonModule,

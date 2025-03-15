@@ -37,6 +37,11 @@ export class QuestionService {
     return this.http.get<SingleQuestionRequest>(BASIC_URL + `api/question/${questionId}`, { headers: this.createAutorizationHeader() }).pipe(catchError(this.handleError));
   }
 
+  getQuestionsByUserId(pageNumber: number): Observable<AllQuestionRequest> {
+    const url = `${BASIC_URL}api/questions/${this.storageService.getUserId()}/${pageNumber}`;
+    return this.http.get<AllQuestionRequest>(url, { headers: this.createAutorizationHeader() }).pipe(catchError(this.handleError));
+  }
+
   // Método de tratamento de erros que captura falhas na comunicação com o servidor.
   private handleError(error: HttpErrorResponse): Observable<never> {
     let errorMessage = 'Ocorreu um erro';
