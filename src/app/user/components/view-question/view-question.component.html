@@ -9,6 +9,16 @@
     Perguntou em: <b>{{ question?.questionsDTO?.createdDate | date : "dd/MM/yyyy" }}</b> 
     por <b>{{ question?.questionsDTO?.username }}</b>
   </p>
+  
+  <div class="vote-section">
+    <div class="arrow-icon" (click)="addVote('UPVOTE')">
+      <i class="material-icons">keyboard_arrow_up</i>
+    </div>
+    <div class="arrow-icon" (click)="addVote('DOWNVOTE')">
+      <i class="material-icons">keyboard_arrow_down</i>
+    </div>
+  </div>
+  
   <div class="question-body">
     <p>Corpo do texto: {{ question?.questionsDTO?.body }}</p>
     <div class="tag-list">

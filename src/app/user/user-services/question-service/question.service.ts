@@ -5,6 +5,7 @@ import { StorageService } from '../../../auth-services/storage-service/storage.s
 import { QuestionRequest } from '../../../model/QuestionRequest';
 import { AllQuestionRequest } from '../../../model/AllQuestionRequest';
 import { SingleQuestionRequest } from '../../../model/SingleQuestionRequest';
+import { QuestionVoteRequest } from '../../../model/QuestionVoteRequest';
 
 const BASIC_URL = "http://localhost:8080/";
 
@@ -40,6 +41,10 @@ export class QuestionService {
   getQuestionsByUserId(pageNumber: number): Observable<AllQuestionRequest> {
     const url = `${BASIC_URL}api/questions/${this.storageService.getUserId()}/${pageNumber}`;
     return this.http.get<AllQuestionRequest>(url, { headers: this.createAutorizationHeader() }).pipe(catchError(this.handleError));
+  }
+
+  addVoteToQuestion(voteQuestionDto: QuestionVoteRequest): Observable<QuestionVoteRequest> {
+    return this.http.post<QuestionVoteRequest>(BASIC_URL + "api/vote", voteQuestionDto, { headers: this.createAutorizationHeader() }).pipe(catchError(this.handleError));
   }
 
   // Método de tratamento de erros que captura falhas na comunicação com o servidor.

@@ -6,6 +6,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AnswerService } from '../../user-services/answer-services/answer.service';
 import { StorageService } from '../../../auth-services/storage-service/storage.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { QuestionVoteRequest } from '../../../model/QuestionVoteRequest';
+import { VoteTypeRequest } from '../../../model/VoteTypeRequest.enum';
 
 @Component({
   selector: 'app-view-question',
@@ -146,4 +148,32 @@ export class ViewQuestionComponent {
       reader.readAsDataURL(this.selectedFile as Blob);
     }
   }
+
+  addVote(voteType: VoteTypeRequest) {
+    console.log('Tipo de voto:', voteType);
+
+    const data: QuestionVoteRequest = {
+        voteType: voteType,
+        userId: this.storageService.getUserId(),
+        questionId: this.questionId
+    };
+
+    this.questionService.addVoteToQuestion(data).subscribe({
+        next: (response) => {
+            console.log('Resposta da requisição:', response);
+            if (response && response.id) {
+                this.snackBar.open('Voto computado com sucesso!', 'Fechar', { duration: 5000 });
+            } else {
+                this.snackBar.open('Erro ao computar voto!', 'Fechar', { duration: 5000 });
+            }
+        },
+        error: (error) => {
+            console.error('Erro na requisição:', error);
+            this.snackBar.open('Erro ao computar voto!', 'Fechar', { duration: 5000 });
+        },
+        complete: () => {
+            console.log('Requisição finalizada.');
+        }
+    });
+}
 }
