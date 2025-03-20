@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { SingleQuestionRequest } from '../../../model/SingleQuestionRequest';
-import { QuestionService } from '../../user-services/question-service/question.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AnswerService } from '../../user-services/answer-services/answer.service';
-import { StorageService } from '../../../auth-services/storage-service/storage.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute, Router } from '@angular/router';
+import { StorageService } from '../../../auth-services/storage-service/storage.service';
 import { QuestionVoteRequest } from '../../../model/QuestionVoteRequest';
+import { SingleQuestionRequest } from '../../../model/SingleQuestionRequest';
 import { VoteTypeRequest } from '../../../model/VoteTypeRequest.enum';
+import { AnswerService } from '../../user-services/answer-services/answer.service';
+import { QuestionService } from '../../user-services/question-service/question.service';
 
 @Component({
   selector: 'app-view-question',
@@ -149,11 +149,18 @@ export class ViewQuestionComponent {
     }
   }
 
-  addVote(voteType: VoteTypeRequest) {
+  addVote(voteType: String) {
     console.log('Tipo de voto:', voteType);
 
+    const mappedVoteType = VoteTypeRequest[voteType as keyof typeof VoteTypeRequest];
+
+    if (mappedVoteType === undefined) {
+        console.error("Tipo de voto inválido:", voteType);
+        return;
+    }
+
     const data: QuestionVoteRequest = {
-        voteType: voteType,
+        voteType: mappedVoteType,
         userId: this.storageService.getUserId(),
         questionId: this.questionId
     };
