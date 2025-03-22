@@ -149,9 +149,20 @@ export class ViewQuestionComponent {
     }
   }
 
-  addVote(voteType: String) {
+  addVote(voteType: string, voted: number | string) {
     console.log('Tipo de voto:', voteType);
+    console.log('Voto atual:', voted);
 
+    // Padroniza `voted` para número
+    const votedNumber = typeof voted === 'string' ? parseInt(voted, 10) : voted;
+
+    // Verifica se já votou
+    if (votedNumber === 1 || votedNumber === -1) {
+        this.snackBar.open('Você já votou nesta pergunta!', 'Fechar', { duration: 5000, panelClass: 'error-snackbar' });
+        return;
+    }
+
+    // Mapeia o tipo de voto
     const mappedVoteType = VoteTypeRequest[voteType as keyof typeof VoteTypeRequest];
 
     if (mappedVoteType === undefined) {
@@ -170,6 +181,7 @@ export class ViewQuestionComponent {
             console.log('Resposta da requisição:', response);
             if (response && response.id) {
                 this.snackBar.open('Voto computado com sucesso!', 'Fechar', { duration: 5000 });
+                this.getQuestionById();
             } else {
                 this.snackBar.open('Erro ao computar voto!', 'Fechar', { duration: 5000 });
             }
@@ -183,4 +195,5 @@ export class ViewQuestionComponent {
         }
     });
 }
+
 }

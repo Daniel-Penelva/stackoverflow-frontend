@@ -35,7 +35,7 @@ export class QuestionService {
   }
 
   getQuestionById(questionId: number): Observable<SingleQuestionRequest> {
-    return this.http.get<SingleQuestionRequest>(BASIC_URL + `api/question/${questionId}`, { headers: this.createAutorizationHeader() }).pipe(catchError(this.handleError));
+    return this.http.get<SingleQuestionRequest>(BASIC_URL + `api/question/${questionId}/${this.storageService.getUserId()}`, { headers: this.createAutorizationHeader() }).pipe(catchError(this.handleError));
   }
 
   getQuestionsByUserId(pageNumber: number): Observable<AllQuestionRequest> {

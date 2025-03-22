@@ -11,13 +11,25 @@
   </p>
   
   <div class="vote-section">
-    <div class="arrow-icon" (click)="addVote('UPVOTE')">
+    <div class="arrow-icon" 
+         (click)="addVote('UPVOTE', question?.questionsDTO?.voted ?? 0)" 
+         matTooltip="Esta resposta é útil" 
+         [ngStyle]="{'color': question?.questionsDTO?.voted == '1' ? 'rgb(11, 211, 81)' : 'default'}">
       <i class="material-icons">keyboard_arrow_up</i>
     </div>
-    <div class="arrow-icon" (click)="addVote('DOWNVOTE')">
+  
+    <div class="vote-count">
+      <p>{{ question?.questionsDTO?.voteCount || 0 }}</p> <!-- Se não houver votos, exibe 0 -  evita que o campo apareça vazio caso voteCount seja undefined. -->
+    </div>
+  
+    <div class="arrow-icon" 
+         (click)="addVote('DOWNVOTE', question?.questionsDTO?.voted ?? 0)" 
+         matTooltip="Esta resposta não foi útil" 
+         [ngStyle]="{'color': question?.questionsDTO?.voted == '-1' ? 'rgb(11, 211, 81)' : 'default'}">
       <i class="material-icons">keyboard_arrow_down</i>
     </div>
   </div>
+  
   
   <div class="question-body">
     <p>Corpo do texto: {{ question?.questionsDTO?.body }}</p>
