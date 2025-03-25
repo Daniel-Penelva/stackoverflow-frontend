@@ -26,6 +26,8 @@ export class ViewQuestionComponent {
   formData: FormData = new FormData();   // Para manipular arquivo de imagem
   answers: any[] = [];
 
+  displayButton: boolean = false;
+
   constructor(
     private questionService: QuestionService,
     private activatedRoute: ActivatedRoute,
@@ -77,6 +79,9 @@ export class ViewQuestionComponent {
           }
           this.answers.push(element);
         });
+        if (this.storageService.getUserId() === this.question.questionsDTO.userId) {
+          this.displayButton = true;
+        }
       },
       error: (error) => {
         console.log(error);
@@ -195,5 +200,25 @@ export class ViewQuestionComponent {
         }
     });
 }
+
+  approveAnswer(answerId: number) {
+    this.answerService.approveAnswer(answerId).subscribe({
+      next: (response) => { 
+        console.log('Resposta da requisição:', response);
+        if (response && response.id) {
+          this.snackBar.open('Resposta aprovada com sucesso!', 'Fechar', { duration: 5000 });
+        } else {
+          this.snackBar.open('Erro ao aprovar resposta!', 'Fechar', { duration: 5000 });
+        }
+      },
+      error: (error) => {
+        console.error('Erro na requisição:', error);
+      },
+      complete: () => {
+        console.log('Requisição finalizada.');
+        this.getQuestionById();
+      }
+    });
+  }
 
 }

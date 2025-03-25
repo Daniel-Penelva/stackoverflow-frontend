@@ -56,6 +56,14 @@
           style="height: 150px; display: block; margin-top: 10px;" 
         />
       </div>
+      <span>
+        <hr>
+        <div>
+          <button mat-raised-button color="primary" (click)="approveAnswer(answer.id)" *ngIf="displayButton">
+            <mat-icon>check_circle</mat-icon> Aprovar Pergunta
+          </button>
+        </div>
+      </span>
     </div>
   </div>
 </div>

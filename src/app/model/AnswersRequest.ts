@@ -8,4 +8,5 @@ export interface AnswersRequest {
   createdDate?: Date | string;
   file: ImageRequest;
   convertedImg: any;
+  approved: boolean;
 }

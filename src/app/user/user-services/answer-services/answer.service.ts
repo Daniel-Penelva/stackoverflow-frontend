@@ -22,6 +22,11 @@ export class AnswerService {
     return this.http.post<[]>(url, fileData, { headers: this.createAutorizationHeader() }).pipe(catchError(this.handleError));
   }
 
+  approveAnswer(answerId: number): Observable<any> {
+    const url = `${BASIC_URL}api/answer/${answerId}`;
+    return this.http.get<[]>(url, { headers: this.createAutorizationHeader() }).pipe(catchError(this.handleError));
+  }
+
 
   createAutorizationHeader(): HttpHeaders {
       let authHeaders: HttpHeaders = new HttpHeaders();
