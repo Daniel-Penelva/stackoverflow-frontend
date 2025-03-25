@@ -8,4 +8,5 @@ export interface QuestionRequest {
   username: string;    // captura o nome do usuário
   voteCount: number | string;   // captura a quantidade de votos
   voted: number | string;       // captura o valor do voto do usuário. 0 = não votou, 1 = votou para a pergunta, -1 = votou contra a pergunta
+  hasApprovedAnswer: boolean;   // captura se a pergunta tem uma resposta aprovada
 }
