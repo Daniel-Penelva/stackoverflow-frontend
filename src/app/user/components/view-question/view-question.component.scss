@@ -135,3 +135,15 @@ img {
 .approved-icon {
     color: green;
 }
+
+.vote-section {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.arrow-icon {
+    cursor: pointer;
+    margin-right: 10px;
+    font-size: 24px;
+}

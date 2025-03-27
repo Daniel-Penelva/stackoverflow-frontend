@@ -45,9 +45,21 @@
 
 <div *ngFor="let answer of answers; let i = index;" class="answer-card" style = "margin-top: 30px">
   <h2>Resposta</h2>
-  <div class="approved-icon" *ngIf="answer.approved"> <!-- Verifica se a resposta foi aprovada e exibe o ícone de aprovação -->
-    <mat-icon>check_circle</mat-icon>
+
+  <div>
+    <div class="vote-section">
+      <div class="approved-icon" *ngIf="answer.approved"> <!-- Verifica se a resposta foi aprovada e exibe o ícone de aprovação -->
+        <mat-icon>check_circle</mat-icon>
+      </div>
+      <div class="arrow-icon">
+        <mat-icon (click) = "addVoteToAnswer('UPVOTE',answer.id)">keyboard_arrow_up</mat-icon>
+      </div>
+      <div class="arrow-icon">
+        <mat-icon (click) = "addVoteToAnswer('DOWNVOTE',answer.id)">keyboard_arrow_down</mat-icon>
+      </div>
+    </div>
   </div>
+
   <div>
     <div>
       <h5>Respondido por: <b>{{ answer.username }}</b> - Respondido em: <b>{{ answer.createdDate | date : "MMM d, y, h:mm:ss a" }}</b></h5> <!-- Formatação de data: Jun 15, 2015, 9:03:01 AM -->

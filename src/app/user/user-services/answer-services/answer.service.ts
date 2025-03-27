@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { StorageService } from '../../../auth-services/storage-service/storage.service';
 import { catchError, Observable, throwError } from 'rxjs';
 import { AnswersRequest } from '../../../model/AnswersRequest';
+import { AnswerVoteRequest } from '../../../model/AnswerVoteRequest';
 
 const BASIC_URL = "http://localhost:8080/";
 
@@ -27,6 +28,10 @@ export class AnswerService {
     return this.http.get<[]>(url, { headers: this.createAutorizationHeader() }).pipe(catchError(this.handleError));
   }
 
+  addVoteToAnswer(answerVoteDto: AnswerVoteRequest): Observable<AnswerVoteRequest> {
+    const url = `${BASIC_URL}api/answer-vote`;
+    return this.http.post<AnswerVoteRequest>(url, answerVoteDto, { headers: this.createAutorizationHeader() }).pipe(catchError(this.handleError));
+  }
 
   createAutorizationHeader(): HttpHeaders {
       let authHeaders: HttpHeaders = new HttpHeaders();

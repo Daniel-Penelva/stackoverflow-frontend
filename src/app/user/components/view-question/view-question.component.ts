@@ -8,6 +8,7 @@ import { SingleQuestionRequest } from '../../../model/SingleQuestionRequest';
 import { VoteTypeRequest } from '../../../model/VoteTypeRequest.enum';
 import { AnswerService } from '../../user-services/answer-services/answer.service';
 import { QuestionService } from '../../user-services/question-service/question.service';
+import { AnswerVoteRequest } from '../../../model/AnswerVoteRequest';
 
 @Component({
   selector: 'app-view-question',
@@ -217,6 +218,43 @@ export class ViewQuestionComponent {
       complete: () => {
         console.log('Requisição finalizada.');
         this.getQuestionById();
+      }
+    });
+  }
+
+  addVoteToAnswer(type: string, answerId: number | string) {
+    console.log('Votando na resposta...', type + '- id da resposta: ', answerId);
+
+    // Mapeia o tipo de voto
+    const mappedAnswerVoteType = VoteTypeRequest[type as keyof typeof VoteTypeRequest];
+
+    if (mappedAnswerVoteType === undefined) {
+        console.error("Tipo de voto inválido:", type);
+        return;
+    }
+
+    const answerVoteDto: AnswerVoteRequest = {
+      voteType: mappedAnswerVoteType,
+      userId: this.storageService.getUserId(),
+      answersId: answerId
+    }
+
+    this.answerService.addVoteToAnswer(answerVoteDto).subscribe({
+      next: (response) => {
+        console.log('Resposta da requisição:', response);
+        if (response && response.id) {
+            this.snackBar.open('Voto computado com sucesso!', 'Fechar', { duration: 5000 });
+            this.getQuestionById();
+        } else {
+            this.snackBar.open('Erro ao computar voto!', 'Fechar', { duration: 5000 });
+        }
+      },
+      error: (error) => {
+          console.error('Erro na requisição:', error);
+          this.snackBar.open('Erro ao computar voto!', 'Fechar', { duration: 5000 });
+      },
+      complete: () => {
+          console.log('Requisição finalizada.');
       }
     });
   }
