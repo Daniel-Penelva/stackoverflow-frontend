@@ -51,12 +51,23 @@
       <div class="approved-icon" *ngIf="answer.approved"> <!-- Verifica se a resposta foi aprovada e exibe o ícone de aprovação -->
         <mat-icon>check_circle</mat-icon>
       </div>
-      <div class="arrow-icon">
-        <mat-icon (click) = "addVoteToAnswer('UPVOTE',answer.id)">keyboard_arrow_up</mat-icon>
+
+      <div class="arrow-icon" 
+        matTooltip="Esta resposta é útil" 
+        [ngStyle]="{'color': answer?.voted == '1' ? 'rgb(11, 211, 81)' : 'default'}">
+          <mat-icon (click) = "addVoteToAnswer('UPVOTE',answer.id, answer.voted)" >keyboard_arrow_up</mat-icon>
       </div>
-      <div class="arrow-icon">
-        <mat-icon (click) = "addVoteToAnswer('DOWNVOTE',answer.id)">keyboard_arrow_down</mat-icon>
+
+      <div class="vote-count">
+        <p>{{ answer.voteCount || 0 }}</p> <!-- Se não houver votos, exibe 0 -  evita que o campo apareça vazio caso voteCount seja undefined. -->
       </div>
+
+      <div class="arrow-icon" 
+        matTooltip="Esta resposta não foi útil" 
+        [ngStyle]="{'color': answer?.voted == '-1' ? 'rgb(11, 211, 81)' : 'default'}">
+          <mat-icon (click) = "addVoteToAnswer('DOWNVOTE',answer.id, answer.voted)" >keyboard_arrow_down</mat-icon>
+      </div>
+
     </div>
   </div>
 

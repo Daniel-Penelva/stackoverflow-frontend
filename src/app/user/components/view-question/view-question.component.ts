@@ -222,8 +222,18 @@ export class ViewQuestionComponent {
     });
   }
 
-  addVoteToAnswer(type: string, answerId: number | string) {
+  addVoteToAnswer(type: string, answerId: number | string, voted: number | string) {
+    console.log('Voto atual:', voted);
     console.log('Votando na resposta...', type + '- id da resposta: ', answerId);
+
+    // Padroniza `voted` para número
+    const votedNumber = typeof voted === 'string' ? parseInt(voted, 10) : voted;
+
+    // Verifica se já votou
+    if (votedNumber === 1 || votedNumber === -1) {
+        this.snackBar.open('Você já votou nesta resposta!', 'Fechar', { duration: 5000, panelClass: 'error-snackbar' });
+        return;
+    }
 
     // Mapeia o tipo de voto
     const mappedAnswerVoteType = VoteTypeRequest[type as keyof typeof VoteTypeRequest];

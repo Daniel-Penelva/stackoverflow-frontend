@@ -9,4 +9,6 @@ export interface AnswersRequest {
   file: ImageRequest;
   convertedImg: any;
   approved: boolean;
+  voteCount: number | string;   // captura a quantidade de votos
+  voted: number | string;       // captura o valor do voto do usuário. 0 = não votou, 1 = votou para a pergunta, -1 = votou contra a pergunta
 }
