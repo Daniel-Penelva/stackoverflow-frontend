@@ -3,18 +3,17 @@
     <form [formGroup]="titleForm">
       <mat-form-field class="search-field">
         <input matInput class="search-input" placeholder=" Pesquisar por título" formControlName="title"/>
-
-        <!--Validação para o campo de pesquisa para caracteres especiais -->
-        <mat-error *ngIf="titleForm.controls['title'].hasError('pattern')">
-          A pesquisa não pode conter caracteres especiais!
-        </mat-error>
-
       </mat-form-field>
       <button mat-raised-button class="search-button" color="primary" (click)="searchQuestionByTitle()">Pesquisar</button>
     </form>
+
+    <!-- Exibir mensagem de erro caso a entrada tenha caracteres inválidos -->
+    <mat-error *ngIf="hasValidationError">
+      O título só pode conter letras, números e espaços.
+    </mat-error>
   </div>
 
-  <ng-container *ngIf="questions.length === 0; else questionList">
+  <ng-container *ngIf="questions.length === 0 && !hasValidationError; else questionList">
     <mat-card class="empty-message">
       <mat-card-content>
         <mat-icon>sentiment_dissatisfied</mat-icon>
@@ -45,6 +44,6 @@
   </ng-template>
 
   <div class="pagination">
-    <mat-paginator [length]="total" (page)="pageIndexChange($event)"></mat-paginator>
+    <mat-paginator [length]="total" [pageSize]="5" (page)="pageIndexChange($event)"></mat-paginator>
   </div>
 </div>

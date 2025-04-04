@@ -6,6 +6,7 @@ import { AllQuestionRequest } from '../../../model/AllQuestionRequest';
 import { QuestionRequest } from '../../../model/QuestionRequest';
 import { QuestionVoteRequest } from '../../../model/QuestionVoteRequest';
 import { SingleQuestionRequest } from '../../../model/SingleQuestionRequest';
+import { QuestionSearchRequest } from '../../../model/QuestionSearchRequest';
 
 const BASIC_URL = "http://localhost:8080/";
 
@@ -47,9 +48,9 @@ export class QuestionService {
     return this.http.post<QuestionVoteRequest>(BASIC_URL + "api/vote", voteQuestionDto, { headers: this.createAutorizationHeader() }).pipe(catchError(this.handleError));
   }
 
-  searchQuestionByTitle(title: string, pageNumber: number): Observable<any> {
+  searchQuestionByTitle(title: string, pageNumber: number): Observable<QuestionSearchRequest> {
     const url = `${BASIC_URL}api/search/${title}/${pageNumber}`;
-    return this.http.get<any>(url, { headers: this.createAutorizationHeader() }).pipe(catchError(this.handleError));
+    return this.http.get<QuestionSearchRequest>(url, { headers: this.createAutorizationHeader() }).pipe(catchError(this.handleError));
   }
 
   // Método de tratamento de erros que captura falhas na comunicação com o servidor.

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { QuestionService } from '../../user-services/question-service/question.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { QuestionRequest } from '../../../model/QuestionRequest';
 
 @Component({
   selector: 'app-search-question',
@@ -12,8 +13,9 @@ export class SearchQuestionComponent {
 
   titleForm!: FormGroup;
   pageNumber: number = 0;
-  questions: any[]=[];
+  questions: QuestionRequest[]=[];
   total!: number;
+  hasValidationError: boolean = false;
 
   constructor(
     private questionService: QuestionService,
@@ -43,14 +45,15 @@ export class SearchQuestionComponent {
   }
 
   searchQuestionByTitle(): void {
+    
     if (this.titleForm.invalid) {
-      return; // Se for inválido, não faz a busca
+      this.hasValidationError = true;
+      return;
     }
 
-    this.questionService.searchQuestionByTitle(
-      this.titleForm.controls['title']!.value, 
-      this.pageNumber
-    ).subscribe({
+    this.hasValidationError = false;
+
+    this.questionService.searchQuestionByTitle(this.titleForm.controls['title']!.value, this.pageNumber).subscribe({
       next: (response) => {
         console.log('Resposta da pesquisa:', response);
         this.questions = response.questionsDtoList;
