@@ -2,10 +2,10 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { StorageService } from '../../../auth-services/storage-service/storage.service';
-import { QuestionRequest } from '../../../model/QuestionRequest';
 import { AllQuestionRequest } from '../../../model/AllQuestionRequest';
-import { SingleQuestionRequest } from '../../../model/SingleQuestionRequest';
+import { QuestionRequest } from '../../../model/QuestionRequest';
 import { QuestionVoteRequest } from '../../../model/QuestionVoteRequest';
+import { SingleQuestionRequest } from '../../../model/SingleQuestionRequest';
 
 const BASIC_URL = "http://localhost:8080/";
 
@@ -45,6 +45,11 @@ export class QuestionService {
 
   addVoteToQuestion(voteQuestionDto: QuestionVoteRequest): Observable<QuestionVoteRequest> {
     return this.http.post<QuestionVoteRequest>(BASIC_URL + "api/vote", voteQuestionDto, { headers: this.createAutorizationHeader() }).pipe(catchError(this.handleError));
+  }
+
+  searchQuestionByTitle(title: string, pageNumber: number): Observable<any> {
+    const url = `${BASIC_URL}api/search/${title}/${pageNumber}`;
+    return this.http.get<any>(url, { headers: this.createAutorizationHeader() }).pipe(catchError(this.handleError));
   }
 
   // Método de tratamento de erros que captura falhas na comunicação com o servidor.

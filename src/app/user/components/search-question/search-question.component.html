@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="search-container">
+    <form [formGroup]="titleForm">
+      <mat-form-field class="search-field">
+        <input matInput class="search-input" placeholder=" Pesquisar por título" formControlName="title"/>
+
+        <!--Validação para o campo de pesquisa para caracteres especiais -->
+        <mat-error *ngIf="titleForm.controls['title'].hasError('pattern')">
+          A pesquisa não pode conter caracteres especiais!
+        </mat-error>
+
+      </mat-form-field>
+      <button mat-raised-button class="search-button" color="primary" (click)="searchQuestionByTitle()">Pesquisar</button>
+    </form>
+  </div>
+
+  <ng-container *ngIf="questions.length === 0; else questionList">
+    <mat-card class="empty-message">
+      <mat-card-content>
+        <mat-icon>sentiment_dissatisfied</mat-icon>
+        <p>Nenhuma pergunta encontrada</p>
+      </mat-card-content>
+    </mat-card>
+  </ng-container>
+
+  <ng-template #questionList>
+    <div
+      class="child" *ngFor="let question of questions" [routerLink]="['/question', question.id]">
+      <h2 class="question-title">{{ question.title }}</h2>
+      <div class="question-content">
+        <p>{{ question.body }}</p>
+        <div class="tags-container">
+          <mat-chip-listbox>
+            <mat-chip *ngFor="let tag of question.tags" color="primary">{{ tag }}</mat-chip>
+          </mat-chip-listbox>
+        </div>
+        <hr />
+        <h5>
+          Votos: <b>{{ question.voteCount }}</b> - 
+          Postado por: <b>{{ question.username }}</b> - 
+          Data de criação: <b>{{ question.createdDate | date : "dd/MM/yyyy" }}</b> -
+        </h5>
+      </div>
+    </div>
+  </ng-template>
+
+  <div class="pagination">
+    <mat-paginator [length]="total" (page)="pageIndexChange($event)"></mat-paginator>
+  </div>
+</div>

@@ -10,6 +10,7 @@ import { PostQuestionComponent } from './components/post-question/post-question.
 import { LoadingDialogComponent } from './components/loading-dialog/loading-dialog.component';
 import { ViewQuestionComponent } from './components/view-question/view-question.component';
 import { GetQuestionsByUseridComponent } from './components/get-questions-by-userid/get-questions-by-userid.component';
+import { SearchQuestionComponent } from './components/search-question/search-question.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { GetQuestionsByUseridComponent } from './components/get-questions-by-use
     PostQuestionComponent,
     LoadingDialogComponent,
     ViewQuestionComponent,
-    GetQuestionsByUseridComponent
+    GetQuestionsByUseridComponent,
+    SearchQuestionComponent
   ],
   imports: [
     CommonModule,
