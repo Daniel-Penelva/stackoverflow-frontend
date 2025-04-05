@@ -150,19 +150,42 @@ img {
 
 .add-comment-section { 
     display: flex;
-    align-items: center;
+    flex-direction: column; /* 👈 Faz os elementos ficarem empilhados */
+    align-items: flex-start; /* Alinha à esquerda */
     margin-top: 20px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    gap: 10px; /* Espaço entre os elementos */
 }
 
 .button {
-    margin-left: 10px;
+    align-self: flex-end; /* Mantém o botão alinhado à direita se quiser */
     color: white;
     border: none;
-    padding: 20px 30px;
+    padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+}
+
+/* Mantém o estilo que sugeri antes para os emojis */
+.emoji-picker {
+    display: flex;
+    gap: 10px;
+    padding: 8px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    margin-top: 4px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.emoji-picker span {
+    font-size: 24px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.emoji-picker span:hover {
+    transform: scale(1.2);
 }

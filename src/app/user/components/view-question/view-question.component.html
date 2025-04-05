@@ -87,10 +87,17 @@
       <div class="add-comment-section">
         <mat-form-field appearance="fill">
           <mat-label>Adicionar comentário</mat-label>
-          <input matInput #comment placeholder="Digite seu comentário" nzBorderless />
+          <input matInput #comment placeholder="Digite seu comentário" nzBorderless [(ngModel)]="newComment" />
         </mat-form-field>
         <div>
           <button class="button" mat-raised-button color="primary" (click)="postComment(answer.id, comment.value)">Adicionar Comentario</button>
+        </div>
+
+        <!--Lista de emojis -->
+        <div class="emoji-picker">
+          <span (click)="addEmoji('😊')">😊</span>
+          <span (click)="addEmoji('👍')">👍</span>
+          <span (click)="addEmoji('🔥')">🔥</span>
         </div>
       </div>
 

@@ -30,6 +30,8 @@ export class ViewQuestionComponent {
 
   displayButton: boolean = false;
 
+  newComment: string = '';
+
   constructor(
     private questionService: QuestionService,
     private activatedRoute: ActivatedRoute,
@@ -303,6 +305,10 @@ export class ViewQuestionComponent {
           console.log('Requisição finalizada.');
       }
     });
+  }
+
+  addEmoji(emoji: string) {
+    this.newComment += emoji;
   }
 
 }
