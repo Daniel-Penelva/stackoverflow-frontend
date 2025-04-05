@@ -9,6 +9,7 @@ import { VoteTypeRequest } from '../../../model/VoteTypeRequest.enum';
 import { AnswerService } from '../../user-services/answer-services/answer.service';
 import { QuestionService } from '../../user-services/question-service/question.service';
 import { AnswerVoteRequest } from '../../../model/AnswerVoteRequest';
+import { CommentRequest } from '../../../model/CommentRequest';
 
 @Component({
   selector: 'app-view-question',
@@ -272,14 +273,20 @@ export class ViewQuestionComponent {
   postComment(answerId: number, comment: string) {
     console.log('Comentando resposta...', answerId, comment);
 
-    const commentDto = {
+    // Validação do campo de comentário (vazio ou só com espaços)
+  if (!comment || comment.trim().length === 0) {
+    this.snackBar.open('Digite um comentário antes de enviar.', 'Fechar', { duration: 3000 });
+    return; // Interrompe o método
+  }
+
+    const commentDto: CommentRequest = {
       body: comment,
       answersId: answerId,
-      userId: this.storageService.getUserId()
+      userId: this.storageService.getUserId(),
     };
 
     this.answerService.postCommentToAnswer(commentDto).subscribe({
-      next: (response) => {
+      next: (response: CommentRequest) => {
         console.log('Resposta da requisição:', response);
         if (response && response.id) {
             this.snackBar.open('Comentário enviado com sucesso!', 'Fechar', { duration: 5000 });

@@ -4,6 +4,7 @@ import { StorageService } from '../../../auth-services/storage-service/storage.s
 import { catchError, Observable, throwError } from 'rxjs';
 import { AnswersRequest } from '../../../model/AnswersRequest';
 import { AnswerVoteRequest } from '../../../model/AnswerVoteRequest';
+import { CommentRequest } from '../../../model/CommentRequest';
 
 const BASIC_URL = "http://localhost:8080/";
 
@@ -33,9 +34,9 @@ export class AnswerService {
     return this.http.post<AnswerVoteRequest>(url, answerVoteDto, { headers: this.createAutorizationHeader() }).pipe(catchError(this.handleError));
   }
 
-  postCommentToAnswer(commentDto: any): Observable<any> {
+  postCommentToAnswer(commentDto: CommentRequest): Observable<CommentRequest> {
     const url = `${BASIC_URL}api/answer/comment`;
-    return this.http.post<[]>(url, commentDto, { headers: this.createAutorizationHeader() }).pipe(catchError(this.handleError));
+    return this.http.post<CommentRequest>(url, commentDto, { headers: this.createAutorizationHeader() }).pipe(catchError(this.handleError));
   }
 
   createAutorizationHeader(): HttpHeaders {
