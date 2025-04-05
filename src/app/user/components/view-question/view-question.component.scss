@@ -147,3 +147,22 @@ img {
     margin-right: 10px;
     font-size: 24px;
 }
+
+.add-comment-section { 
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.button {
+    margin-left: 10px;
+    color: white;
+    border: none;
+    padding: 20px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}

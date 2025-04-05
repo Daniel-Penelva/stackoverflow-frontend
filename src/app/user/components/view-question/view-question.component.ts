@@ -269,4 +269,33 @@ export class ViewQuestionComponent {
     });
   }
 
+  postComment(answerId: number, comment: string) {
+    console.log('Comentando resposta...', answerId, comment);
+
+    const commentDto = {
+      body: comment,
+      answersId: answerId,
+      userId: this.storageService.getUserId()
+    };
+
+    this.answerService.postCommentToAnswer(commentDto).subscribe({
+      next: (response) => {
+        console.log('Resposta da requisição:', response);
+        if (response && response.id) {
+            this.snackBar.open('Comentário enviado com sucesso!', 'Fechar', { duration: 5000 });
+            this.getQuestionById();
+        } else {
+            this.snackBar.open('Erro ao enviar comentário!', 'Fechar', { duration: 5000 });
+        }
+      },
+      error: (error) => {
+          console.error('Erro na requisição:', error);
+          this.snackBar.open('Erro ao enviar comentário!', 'Fechar', { duration: 5000 });
+      },
+      complete: () => {
+          console.log('Requisição finalizada.');
+      }
+    });
+  }
+
 }

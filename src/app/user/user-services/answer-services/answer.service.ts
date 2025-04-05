@@ -33,6 +33,11 @@ export class AnswerService {
     return this.http.post<AnswerVoteRequest>(url, answerVoteDto, { headers: this.createAutorizationHeader() }).pipe(catchError(this.handleError));
   }
 
+  postCommentToAnswer(commentDto: any): Observable<any> {
+    const url = `${BASIC_URL}api/answer/comment`;
+    return this.http.post<[]>(url, commentDto, { headers: this.createAutorizationHeader() }).pipe(catchError(this.handleError));
+  }
+
   createAutorizationHeader(): HttpHeaders {
       let authHeaders: HttpHeaders = new HttpHeaders();
       return authHeaders.set("Authorization", "Bearer " + this.storageService.getToken());

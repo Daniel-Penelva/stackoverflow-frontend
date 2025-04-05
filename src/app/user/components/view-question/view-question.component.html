@@ -82,6 +82,18 @@
           style="height: 150px; display: block; margin-top: 10px;" 
         />
       </div>
+
+      <!-- Adicionar comentário -->
+      <div class="add-comment-section">
+        <mat-form-field appearance="fill">
+          <mat-label>Adicionar comentário</mat-label>
+          <input matInput #comment placeholder="Digite seu comentário" nzBorderless />
+        </mat-form-field>
+        <div>
+          <button class="button" mat-raised-button color="primary" (click)="postComment(answer.id, comment.value)">Adicionar Comentario</button>
+        </div>
+      </div>
+
       <span *ngIf="question?.questionsDTO?.hasApprovedAnswer === false"> <!-- Faz o botão de aprovação aparecer apenas se a resposta não for a resposta aprovada -->
         <hr>
         <div>
