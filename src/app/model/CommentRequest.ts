@@ -4,4 +4,5 @@ export interface CommentRequest {
   createdDate?: Date; // opcional na criação
   answersId: number;
   userId: number | string; // string para compatibilidade com o backend
+  username: string;
 }

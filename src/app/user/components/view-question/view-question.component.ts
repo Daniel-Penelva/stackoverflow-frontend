@@ -281,10 +281,17 @@ export class ViewQuestionComponent {
     return; // Interrompe o método
   }
 
+    // Para capturar o nome do usuário (ele tb serve para verificar se o usuário está logado)
+    const user = this.storageService.getUser();
+
+    // Captura os dados do comentário
+    // O id do usuário é capturado do localStorage, já que o usuário está logado, o mesmo para o nome do usuário
+    // O id e o body do comentário são capturados pelo parâmetro passado para o método
     const commentDto: CommentRequest = {
       body: comment,
       answersId: answerId,
       userId: this.storageService.getUserId(),
+      username: user.name,
     };
 
     this.answerService.postCommentToAnswer(commentDto).subscribe({
@@ -292,6 +299,8 @@ export class ViewQuestionComponent {
         console.log('Resposta da requisição:', response);
         if (response && response.id) {
             this.snackBar.open('Comentário enviado com sucesso!', 'Fechar', { duration: 5000 });
+            this.answers = []; // Limpa o array de respostas antes de adicionar novos comentários
+            this.newComment = ''; // Limpa o campo de comentário
             this.getQuestionById();
         } else {
             this.snackBar.open('Erro ao enviar comentário!', 'Fechar', { duration: 5000 });

@@ -83,6 +83,17 @@
         />
       </div>
 
+      <!-- Exibe a lista de comentários relacionados a uma resposta  -->
+      <div class="comment-section" *ngFor="let comment of answer.commentDtoList">
+        <hr />
+        <p>{{ comment.body }}</p>
+        <span class="comment-details"> 
+          <mat-divider vertical></mat-divider>
+          Comentário:<b> {{ comment.username }} - {{ comment.createdDate | date : "MMM d, y, h:mm:ss a" }} </b><!-- Formatação de data: Jun 15, 2015, 9:03:01 AM -->
+        </span>
+        <hr />
+      </div>
+
       <!-- Adicionar comentário -->
       <div class="add-comment-section">
         <mat-form-field appearance="fill">
