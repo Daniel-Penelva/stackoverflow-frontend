@@ -14,6 +14,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   declarations: [],
@@ -34,7 +35,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatChipsModule,
     MatPaginatorModule,
     MatDialogModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatRadioModule
   ]
 })
 export class AppMaterialModule { }

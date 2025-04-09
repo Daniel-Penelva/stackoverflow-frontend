@@ -11,7 +11,7 @@
   <mat-toolbar color="primary" class="navbar">                 
     <span class="navbar-brand">Stack Exchange</span>
     <span class="spacer"></span>
-    <button mat-button routerLink="/user/dashboard" routerLinkActive="active">Painel</button>
+    <button mat-button (click)="refreshDashboard()" routerLink="/user/dashboard" routerLinkActive="active">Painel</button>
     <button mat-button routerLink="/user/question" routerLinkActive="active">Postar Pergunta</button>
     <button mat-button routerLink="/user/search_question" routerLinkActive="active">Pesquisar Pergunta</button>
     <button mat-button routerLink="/user/my_questions" routerLinkActive="active">Minha Pergunta</button>   

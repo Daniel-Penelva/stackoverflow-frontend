@@ -46,9 +46,25 @@ export class DashboardComponent {
     });
   }
 
+  getLatestQuestions() {
+    
+    this.questionService.getLatestQuestion(this.pageNum).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.questions = response.questionsDtoList;
+        this.total = response.totalPages * 5;
+      },
+      error: (error) => {
+        console.error('Erro ao listar as perguntas:', error);
+      },
+      complete: () => {
+        console.log('Requisição finalizada.');
+      },
+    });
+  }
+
   pageIndexChange(event: any) {
     this.pageNum = event.pageIndex;
     this.getAllQuestions();
   }
-
 }

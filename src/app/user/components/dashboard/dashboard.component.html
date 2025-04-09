@@ -1,5 +1,13 @@
 <div style="min-height: 91vh; padding: 30px;" *ngIf="questions">
     <div>
+        <!--busca perguntas recentes -->
+        <div class="radio">
+            <mat-radio-group>
+                <mat-radio-button value="radio" (click)="getLatestQuestions()">Últimas Perguntas</mat-radio-button>
+            </mat-radio-group>
+        </div>
+
+
         <div class="container">
             <ng-container *ngIf="questions.length === 0; else questionList">
                 <mat-card class="empty-message">

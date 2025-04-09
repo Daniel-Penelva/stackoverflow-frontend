@@ -36,4 +36,14 @@ export class AppComponent {
     this.snackbar.open('Você foi deslogado com sucesso.', 'Fechar', { duration: 3000 });
     this.router.navigateByUrl("/login");
   }
+
+  // Força a recarga da rota /user/dashboard
+  refreshDashboard() {
+    
+    if (this.router.url === '/user/dashboard') {  // Verifica se já está na rota desejada
+      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {  // Navega para uma rota "temporária", sem alterar o histórico do navegador
+        this.router.navigate(['/user/dashboard']);  // Depois volta para a rota original (/user/dashboard), forçando a recarga do componente
+      });
+    }
+  }
 }
