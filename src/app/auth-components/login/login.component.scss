@@ -63,3 +63,16 @@
     color: rgba(0,0,0,0.6); 
     font-size: 14px;
 }
+
+.custom-nav-link {
+    text-decoration: none;       // remove o sublinhado
+    color: #3f51b5;                // cor branca
+    cursor: pointer;             // muda para "mãozinha"
+    font-weight: bold;           // opcional: deixa o texto em negrito
+    transition: color 0.3s ease; // suaviza a transição de cor
+    padding-left: 5px;
+
+    &:hover {
+      color: #bb2929;               // muda para cinza claro ao passar o mouse
+    }
+}
