@@ -13,6 +13,8 @@ export class AppComponent {
 
   isUserLoggedIn!: boolean;
 
+  showWelcomeImage: boolean = true;   // Variável para controlar a exibição da imagem
+
   constructor(
     private router: Router, 
     private storage: StorageService,
@@ -23,6 +25,9 @@ export class AppComponent {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.updateUserLoggedInStatus();
+      }
+      if(event instanceof NavigationEnd) {
+        this.showWelcomeImage = event.url === '/';
       }
     });
   }

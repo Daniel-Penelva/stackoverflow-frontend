@@ -1,15 +1,16 @@
 <div *ngIf="!isUserLoggedIn">
   <mat-toolbar color="primary" class="navbar">                 <!-- Para o mat-toolbar add o import MatToolbarModule do Angular Material -->
-    <span class="navbar-brand">Stack Exchange</span>
+    <a class="navbar-brand custom-nav-link" routerLink="/">Stack Exchange</a>    
     <span class="spacer"></span>
-    <button mat-button routerLink="/login" routerLinkActive="active">Login</button>      <!-- Para o mat-button add o import MatButtonModule do Angular Material -->
-    <button mat-button routerLink="/signup" routerLinkActive="active">Cadastrar</button>
+    <button mat-button routerLink="/" routerLinkActive="active"><mat-icon>home</mat-icon>Home</button>
+    <button mat-button routerLink="/login" routerLinkActive="active"><mat-icon>login</mat-icon>Login</button>      <!-- Para o mat-button add o import MatButtonModule do Angular Material -->
+    <button mat-button routerLink="/signup" routerLinkActive="active"><mat-icon>person_add</mat-icon>Cadastrar</button>
   </mat-toolbar>
 </div>
 
 <div *ngIf="isUserLoggedIn">
   <mat-toolbar color="primary" class="navbar">                 
-    <span class="navbar-brand">Stack Exchange</span>
+    <a class="navbar-brand custom-nav-link" routerLink="/user/dashboard">Stack Exchange</a> 
     <span class="spacer"></span>
     <button mat-button (click)="refreshDashboard()" routerLink="/user/dashboard" routerLinkActive="active">Painel</button>
     <button mat-button routerLink="/user/question" routerLinkActive="active">Postar Pergunta</button>
@@ -18,5 +19,41 @@
     <button mat-button routerLinkActive="active" (click)="logout()">Logout</button>
   </mat-toolbar>
 </div>
+
+<!-- Seção de boas-vindas com imagem, exibida apenas se showWelcomeImage for true -->
+<div *ngIf="showWelcomeImage">
+  <mat-card class="welcome-card">
+    
+    <mat-card-content class="title-center">
+      <p>
+        Bem-vindo ao Stack Overflow Clone
+      </p>
+    </mat-card-content>
+
+    <img mat-card-image src="../../../assets/img/home.png"
+         alt="Imagem de Boas-vindas"
+         style="width: 50%; height: auto; margin: 0 auto; border-radius: 10px;" />
+
+    <mat-card-content>
+      <p style="margin-top: 15px; font-size: 18px; color: #003973;">
+        Faça perguntas, encontre respostas e colabore no trabalho com o Stack Overflow Clone.
+      </p>
+    </mat-card-content>
+
+    <mat-card-actions style="justify-content: center; margin-top: 10px;">
+      <button mat-raised-button color="warn" routerLink="/login" routerLinkActive="active">
+        Comece Agora
+      </button>
+    </mat-card-actions>
+  </mat-card>
+
+  <mat-divider></mat-divider>
+
+  <footer class="footer-content">
+    | Sistema de Perguntas e Respostas | - © 2025 Copyright: Daniel Penelva de Andrade
+  </footer>
+</div>
+
+
 
 <router-outlet></router-outlet>

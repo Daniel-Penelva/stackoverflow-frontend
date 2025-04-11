@@ -1,47 +1,60 @@
-<div class="login-container">
-    <mat-card class="login-card">
-        <mat-card-content>
-            <h2 class="login-caption">Login</h2>
-            <form [formGroup]="loginForm">
-                <div class="form-input">
-                    <mat-form-field appearance="fill" class="form-field">
-                        <mat-label>E-mail</mat-label>
-                        <input matInput placeholder="Entre com seu e-mail" name="email" type="email" formControlName="email" required>
+<div class="login-wrapper">
+    <div class="login-container">
+        <mat-card class="login-card">
+            <mat-card-content class="title-center">
+                <p>
+                Bem-vindo ao Stack Overflow Clone
+                </p>
+            </mat-card-content>
+            <mat-card-content>
+                <h2 class="login-caption">Login</h2>
+                <form [formGroup]="loginForm">
+                    <div class="form-input">
+                        <mat-form-field appearance="fill" class="form-field">
+                            <mat-label>E-mail</mat-label>
+                            <input matInput placeholder="Entre com seu e-mail" name="email" type="email" formControlName="email" required>
 
-                        <mat-error *ngIf="loginForm.get('email')?.touched">
-                            <div *ngIf="loginForm.get('email')?.hasError('required')">O campo e-mail é obrigatório.</div>
-                            <div *ngIf="loginForm.get('email')?.hasError('email')">Insira um e-mail válido.</div>
-                        </mat-error>
-                    </mat-form-field>
-                </div>
+                            <mat-error *ngIf="loginForm.get('email')?.touched">
+                                <div *ngIf="loginForm.get('email')?.hasError('required')">O campo e-mail é obrigatório.</div>
+                                <div *ngIf="loginForm.get('email')?.hasError('email')">Insira um e-mail válido.</div>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
 
-                <mat-divider class="divider"></mat-divider>
+                    <mat-divider class="divider"></mat-divider>
 
-                <div class="form-input">
-                    <mat-form-field appearance="fill" class="form-field">
-                        <mat-label>Senha</mat-label>
-                        <input matInput [type]="showPassword() ? 'password' : 'text'" autocomplete="off" placeholder="Entre com sua senha" name="password" type="password" formControlName="password" required>
-                        <button 
-                            mat-icon-button 
-                            matSuffix 
-                            (click)="togglePasswordVisibility($event)" 
-                            [attr.aria-label]="showPassword() ? 'Ocultar senha' : 'Mostrar senha'"
-                            [attr.aria-pressed]="showPassword()">
-                        
-                            <mat-icon>{{ showPassword() ? 'visibility' : 'visibility_off' }}</mat-icon>  <!-- Para o mat-icon add o import MatIconModule do Angular Material -->
-                        </button>
+                    <div class="form-input">
+                        <mat-form-field appearance="fill" class="form-field">
+                            <mat-label>Senha</mat-label>
+                            <input matInput [type]="showPassword() ? 'password' : 'text'" autocomplete="off" placeholder="Entre com sua senha" name="password" type="password" formControlName="password" required>
+                            <button 
+                                mat-icon-button 
+                                matSuffix 
+                                (click)="togglePasswordVisibility($event)" 
+                                [attr.aria-label]="showPassword() ? 'Ocultar senha' : 'Mostrar senha'"
+                                [attr.aria-pressed]="showPassword()">
+                            
+                                <mat-icon>{{ showPassword() ? 'visibility' : 'visibility_off' }}</mat-icon>  <!-- Para o mat-icon add o import MatIconModule do Angular Material -->
+                            </button>
 
-                        <mat-error *ngIf="loginForm.get('password')?.touched">
-                            <div *ngIf="loginForm.get('password')?.hasError('required')">O campo senha é obrigatório.</div>
-                            <div *ngIf="loginForm.get('password')?.hasError('minlength')">O campo senha precisa ter no mínimo três caracteres.</div>
-                        </mat-error>
-                    </mat-form-field>
-                </div>
+                            <mat-error *ngIf="loginForm.get('password')?.touched">
+                                <div *ngIf="loginForm.get('password')?.hasError('required')">O campo senha é obrigatório.</div>
+                                <div *ngIf="loginForm.get('password')?.hasError('minlength')">O campo senha precisa ter no mínimo três caracteres.</div>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
 
-                <mat-divider class="divider"></mat-divider>
+                    <mat-divider class="divider"></mat-divider>
 
-                <button mat-raised-button color="primary" class="login-button" [disabled]="loginForm.invalid" (click)="login()">Login</button>
-            </form>
-        </mat-card-content>
-    </mat-card>
+                    <button mat-raised-button color="primary" class="login-button" [disabled]="loginForm.invalid" (click)="login()">Login</button>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <mat-divider></mat-divider>
+    <footer class="footer-content">
+    | Sistema de Perguntas e Respostas | - © 2025 Copyright: Daniel Penelva de Andrade
+    </footer>
 </div>
+
