@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, map, Observable, tap, throwError } from 'rxjs';
 import { SignupRequest } from '../../model/SignupRequest';
 import { StorageService } from '../storage-service/storage.service';
-import { environment } from '../../../environments/environment.prod';
+import { environment } from '../../../environments/environment';
 
 // const BASIC_URL = "http://localhost:8080/";
 const BASIC_URL = environment.apiUrl;
