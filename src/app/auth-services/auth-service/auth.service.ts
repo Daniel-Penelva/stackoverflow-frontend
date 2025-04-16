@@ -2,10 +2,11 @@ import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/htt
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, tap, throwError } from 'rxjs';
 import { SignupRequest } from '../../model/SignupRequest';
-import { LoginRequest } from '../../model/LoginRequest';
 import { StorageService } from '../storage-service/storage.service';
+import { environment } from '../../../environments/environment.prod';
 
-const BASIC_URL = "http://localhost:8080/";
+// const BASIC_URL = "http://localhost:8080/";
+const BASIC_URL = environment.apiUrl;
 
 export const AUTH_HEADER = "authorization";
 

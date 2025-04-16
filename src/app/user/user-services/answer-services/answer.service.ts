@@ -5,8 +5,10 @@ import { catchError, Observable, throwError } from 'rxjs';
 import { AnswersRequest } from '../../../model/AnswersRequest';
 import { AnswerVoteRequest } from '../../../model/AnswerVoteRequest';
 import { CommentRequest } from '../../../model/CommentRequest';
+import { environment } from '../../../../environments/environment.prod';
 
-const BASIC_URL = "http://localhost:8080/";
+//const BASIC_URL = "http://localhost:8080/";
+const BASIC_URL = environment.apiUrl;
 
 @Injectable({
   providedIn: 'root'

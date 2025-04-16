@@ -7,8 +7,10 @@ import { QuestionRequest } from '../../../model/QuestionRequest';
 import { QuestionVoteRequest } from '../../../model/QuestionVoteRequest';
 import { SingleQuestionRequest } from '../../../model/SingleQuestionRequest';
 import { QuestionSearchRequest } from '../../../model/QuestionSearchRequest';
+import { environment } from '../../../../environments/environment.prod';
 
-const BASIC_URL = "http://localhost:8080/";
+//const BASIC_URL = "http://localhost:8080/";
+const BASIC_URL = environment.apiUrl;
 
 @Injectable({
   providedIn: 'root'
